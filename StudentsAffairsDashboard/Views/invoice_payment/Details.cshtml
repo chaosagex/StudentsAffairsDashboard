@@ -7,65 +7,89 @@
 <h2>Details</h2>
 
 <div>
-    <h4>invoice_payment</h4>
+    <h4>InvoicePayment</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
+    <dl class="row">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.date)
         </dt>
-
-        <dd>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.date)
         </dd>
+        <dt class="col-sm-2">
+            Items
+        </dt>
+        <dd class="col-sm-10">
+            <div class="row">
+                @for (int i = 0; i < this.Model.payment_details.Count; i++)
+                {
 
-        <dt>
+                    <div class="col-3">
+                        <label>@Model.payment_details[i].name</label>
+                    </div>
+                    <div class="col-6">
+                        <label>@Model.payment_details[i].amount</label>
+                    </div>
+                    <br />
+                }
+            </div>
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.total_cost)
         </dt>
-
-        <dd>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.total_cost)
         </dd>
-
-        <dt>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.paid)
         </dt>
-
-        <dd>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.paid)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.remaining)
+        <dt class="col-sm-2">
+            Total Debt
         </dt>
-
-        <dd>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.remaining)
         </dd>
-
-        <dt>
+        <dt class="col-sm-2">
+            Previous Payment
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.previous_payment)
+        </dd>
+        <dt class="col-sm-2">
+            Student
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StudentsMain.StdEnglishFristName)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Notes)
         </dt>
+        <dd class="col-sm-10">
+            <div class="row">
+                @{
+                    if (Model.Notes == null)
+                    {
+                        @Html.DisplayFor(model => model.Notes)
+                    }
+                    else
+                    {
+                        List<string> notes = Model.Notes.Split('\r', '\n').ToList();
+                        notes.RemoveAll(str => String.IsNullOrEmpty(str));
+                        foreach (string note in notes)
+                        {
+                            <div class="col-12">
+                                <label>@note</label>
+                            </div>
+                            <br />
+                        }
+                    }
 
-        <dd>
-            @Html.DisplayFor(model => model.Notes)
+                }
+            </div>
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.invoice_payment2.Notes)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.invoice_payment2.Notes)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StudentsMain.StdArabicFristName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StudentsMain.StdArabicFristName)
-        </dd>
-
     </dl>
 </div>
 <p>
