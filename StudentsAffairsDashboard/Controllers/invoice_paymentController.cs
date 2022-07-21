@@ -169,6 +169,13 @@ namespace StudentsAffairsDashboard.Controllers
             
         }
 
+        public async Task<ActionResult> UniformInvoice(decimal amount,int studentCode)
+        {
+            Uniform_Invoice u = new Uniform_Invoice();
+            u.student = studentCode;
+            u.payment_details.First().amount = amount;
+            return EditView(u, false);
+        }
         private ActionResult EditView(invoice_payment invoice_payment,bool ajax)
         {
             int st = invoice_payment.student;
@@ -211,10 +218,13 @@ namespace StudentsAffairsDashboard.Controllers
                 invoice_payment.remaining = 0;
                 return View(invoice_payment);
             }
-            foreach (payment_details item in items)
-                if (invoice_payment.payment_details.Contains(item)||item.type==uniformType)
-                    item.selected = true;
-            invoice_payment.payment_details = items;
+            if (invoice_payment.payment_details.FirstOrDefault().type != uniformType)
+            {
+                foreach (payment_details item in items)
+                    if (invoice_payment.payment_details.Contains(item))
+                        item.selected = true;
+                invoice_payment.payment_details = items;
+            }            
             ViewBag.student = new SelectList(Students, "StdCode", "StdArabicFristName", invoice_payment.student);
             return View(invoice_payment);
         }

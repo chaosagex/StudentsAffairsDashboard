@@ -13,7 +13,8 @@ namespace StudentsAffairsDashboard.Models
             payment_details pd = new payment_details
             {
                 type = 5,
-                name = "uniform"
+                name = "uniform",
+                selected = true
             };
             this.payment_details.Add(pd);
         }
