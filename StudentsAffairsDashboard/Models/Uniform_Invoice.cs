@@ -10,9 +10,11 @@ namespace StudentsAffairsDashboard.Models
         public Uniform_Invoice() : base()
         {
             this.date = DateTime.Now;
-            payment_details pd = new payment_details();
-            pd.type = 5;
-            pd.name = "uniform";
+            payment_details pd = new payment_details
+            {
+                type = 5,
+                name = "uniform"
+            };
             this.payment_details.Add(pd);
         }
     }
