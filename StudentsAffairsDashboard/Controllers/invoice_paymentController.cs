@@ -224,7 +224,20 @@ namespace StudentsAffairsDashboard.Controllers
                     if (invoice_payment.payment_details.Contains(item))
                         item.selected = true;
                 invoice_payment.payment_details = items;
-            }            
+            }
+            else
+            {
+                if (invoice_payment.payment_details.FirstOrDefault().id == 0)
+                {
+                    payment_details item = invoice_payment.payment_details.FirstOrDefault();
+                    item.school = stud.StdSchoolID;
+                    item.Grade = (short)studentGrade;
+                    item.year = year;
+                    item.student_type = studentType;
+                    db.payment_details.Add(item);
+                    db.SaveChanges();
+                }
+            }
             ViewBag.student = new SelectList(Students, "StdCode", "StdArabicFristName", invoice_payment.student);
             return View(invoice_payment);
         }
