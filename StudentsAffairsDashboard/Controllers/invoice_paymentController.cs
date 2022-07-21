@@ -15,6 +15,7 @@ namespace StudentsAffairsDashboard.Controllers
     {
         private StudentAffairsDatabaseEntities db = new StudentAffairsDatabaseEntities();
         private const int startID = 1031;
+        private const int uniformType = 5;
 
         // GET: invoice_payment
         public async Task<ActionResult> Index()
@@ -62,7 +63,8 @@ namespace StudentsAffairsDashboard.Controllers
             
            
             string year = stud.StudentGradesHistories.LastOrDefault().StudyYear;
-            var items = db.payment_details.Where(a => a.student_type == studentType).Where(a=> a.year.Substring(0, 4) == year).Where(a=> a.school == school).Where(a=>a.Grade == studentGrade).ToList();
+            //get items you pay for except uniform
+            var items = db.payment_details.Where(a => a.type != uniformType).Where(a => a.student_type == studentType).Where(a=> a.year.Substring(0, 4) == year).Where(a=> a.school == school).Where(a=>a.Grade == studentGrade).ToList();
             invoice_payment invoice = new invoice_payment();
             var x = db.getPreviousPayment(st).FirstOrDefault();
             if (x != null)
@@ -186,7 +188,8 @@ namespace StudentsAffairsDashboard.Controllers
 
 
             string year = stud.StudentGradesHistories.LastOrDefault().StudyYear;
-            var items = db.payment_details.Where(a => a.student_type == studentType).Where(a => a.year.Substring(0, 4) == year).Where(a => a.school == school).Where(a => a.Grade == studentGrade).ToList();
+            //get items you pay for except uniform
+            var items = db.payment_details.Where(a => a.type != uniformType).Where(a => a.student_type == studentType).Where(a => a.year.Substring(0, 4) == year).Where(a => a.school == school).Where(a => a.Grade == studentGrade).ToList();
             if (ajax)
             {
                 var x = db.getPreviousPayment(st).FirstOrDefault();
@@ -209,7 +212,7 @@ namespace StudentsAffairsDashboard.Controllers
                 return View(invoice_payment);
             }
             foreach (payment_details item in items)
-                if (invoice_payment.payment_details.Contains(item))
+                if (invoice_payment.payment_details.Contains(item)||item.type==uniformType)
                     item.selected = true;
             invoice_payment.payment_details = items;
             ViewBag.student = new SelectList(Students, "StdCode", "StdArabicFristName", invoice_payment.student);
