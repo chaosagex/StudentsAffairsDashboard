@@ -76,16 +76,16 @@
     {
         int j = i + 1;
         if (Model.payment_details[i].type == 5)//it's a uniform hence making it unremovable
-            @Html.CheckBoxFor(model => model.payment_details[i].selected, new { id = @String.Format("{0}{1}", "cb", i), onclick = String.Format("update({0})", i), disabled = "disabled" })
-        else
-            @Html.CheckBoxFor(model => model.payment_details[i].selected, new { id = @String.Format("{0}{1}", "cb", i), onclick = String.Format("update({0})", i) })
-            <label asp-for="@Model.payment_details[i].selected">@Model.payment_details[i].name</label>
-            @Html.HiddenFor(model => model.payment_details[i].id)
-            @Html.HiddenFor(model => model.payment_details[i].name)
-            @Html.HiddenFor(model => model.payment_details[i].year)
-            @Html.HiddenFor(model => model.payment_details[i].amount, new { id = @String.Format("{0}{1}", "am", i) })
-            <br />
-        }
+        {@Html.CheckBoxFor(model => model.payment_details[i].selected, new { id = @String.Format("{0}{1}", "cb", i), onclick = String.Format("update({0})", i), disabled = "disabled" })}
+    else
+    { @Html.CheckBoxFor(model => model.payment_details[i].selected, new { id = @String.Format("{0}{1}", "cb", i), onclick = String.Format("update({0})", i) })}
+<label asp-for="@Model.payment_details[i].selected">@Model.payment_details[i].name</label>
+@Html.HiddenFor(model => model.payment_details[i].id)
+@Html.HiddenFor(model => model.payment_details[i].name)
+@Html.HiddenFor(model => model.payment_details[i].year)
+@Html.HiddenFor(model => model.payment_details[i].amount, new { id = @String.Format("{0}{1}", "am", i) })
+<br />
+}
 
     @Html.HiddenFor(model => model.previous_payment)
     @Html.HiddenFor(model => model.remaining)
