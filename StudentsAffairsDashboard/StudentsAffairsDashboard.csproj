@@ -223,7 +223,6 @@
     <Compile Include="Models\Subject.cs">
       <DependentUpon>AffairsModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Uniform_Invoice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
